@@ -1,4 +1,4 @@
-{Implementar un programa que procese la información de las ventas de productos de un comercio (como máximo 20). 
+    {Implementar un programa que procese la información de las ventas de productos de un comercio (como máximo 20). 
 De cada venta se conoce código del producto (entre 1 y 15) y cantidad vendida (como máximo 99 unidades). 
 El ingreso de las ventas finaliza con el código 0 (no se procesa).
 
