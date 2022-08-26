@@ -31,17 +31,17 @@ type rango1 = 0..15;
 procedure AlmacenarInformacion (var v: vector; var dimL: rango3);
   
   procedure LeerVenta (var v: venta);
-  begin
-    Randomize;
-    write ('Codigo de producto: ');
-    v.codigoP:=random(16);
-    writeln (v.codigoP);
-    if (v.codigoP <> 0)
-    then begin
-           write ('Ingrese cantidad (entre 1 y 99): ');
-           readln (v.cantidad);
-         end;
-  end;
+      begin
+        Randomize;
+        write ('Codigo de producto: ');
+        v.codigoP:=random(16);
+        writeln (v.codigoP);
+        if (v.codigoP <> 0)
+        then begin
+               write ('Ingrese cantidad (entre 1 y 99): ');
+               readln (v.cantidad);
+             end;
+      end;
 
 var unaVenta: venta;
 begin
@@ -56,48 +56,48 @@ begin
 end;
 
 procedure ImprimirVector (v: vector; dimL: rango3);
-var
-   i: integer;
-begin
-     for i:= 1 to dimL do
-         write ('-----');
-     writeln;
-     write (' ');
-     for i:= 1 to dimL do begin
-        if(v[i].codigoP <= 9)then
-            write ('0');
-        write(v[i].codigoP, ' | ');
-     end;
-     writeln;
-     writeln;
-     write (' ');
-     for i:= 1 to dimL do begin
-        if (v[i].cantidad <= 9)then
-            write ('0');
-        write(v[i].cantidad, ' | ');
-     end;
-     writeln;
-     for i:= 1 to dimL do
-         write ('-----');
-     writeln;
-     writeln;
-End;
+    var
+       i: integer;
+    begin
+         for i:= 1 to dimL do
+             write ('-----');
+         writeln;
+         write (' ');
+         for i:= 1 to dimL do begin
+            if(v[i].codigoP <= 9)then
+                write ('0');
+            write(v[i].codigoP, ' | ');
+         end;
+
+         writeln;
+         write (' ');
+         for i:= 1 to dimL do begin
+            if (v[i].cantidad <= 9)then
+                write ('0');
+            write(v[i].cantidad, ' | ');
+         end;
+         writeln;
+         for i:= 1 to dimL do
+             write ('-----');
+         writeln;
+         writeln;
+    End;
 
 procedure Ordenar (var v: vector; dimL: rango3);
-var i, j, pos: rango3; item: venta;	
-begin
- for i:= 1 to dimL - 1 do 
- begin {busca el mínimo y guarda en pos la posición}
-   pos := i;
-   for j := i+1 to dimL do 
-        if (v[j].codigoP < v[pos].codigoP) then pos:=j;
+    var i, j, pos: rango3; item: venta;	
+    begin
+     for i:= 1 to dimL - 1 do 
+     begin {busca el mínimo y guarda en pos la posición}
+       pos := i;
+       for j := i+1 to dimL do 
+            if (v[j].codigoP < v[pos].codigoP) then pos:=j;
 
-   {intercambia v[i] y v[pos]}
-   item := v[pos];   
-   v[pos] := v[i];   
-   v[i] := item;
- end;
-end;
+       {intercambia v[i] y v[pos]}
+       item := v[pos];   
+       v[pos] := v[i];   
+       v[i] := item;
+     end;
+    end;
 
 procedure Eliminar(var v:vector; var dimL:rango3;inferior:rango1; superior:rango1);
     var i,j,cont:rango3;

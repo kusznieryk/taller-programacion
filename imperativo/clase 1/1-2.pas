@@ -9,7 +9,7 @@ c. Ordene el vector aplicando el método de selección, por código de identific
 }
 program aaa;
 const 
-	DIM_F=20;
+	DIM_F=300;
 type
 	rango=1..DIM_F;
 	oficina = record
@@ -73,9 +73,45 @@ procedure ImprimirVector (v: vector; dimL: rango);
 	     writeln;
 	     writeln;
 	End;
+
+Procedure OrdenarInsercion ( var v: vector; dimL: rango );
+	var i, j: rango; actual:oficina;	
+		
+	begin
+	 for i:=2 to dimL do begin 
+	     actual:= v[i];
+	     j:= i-1; 
+	     while (j > 0) and (v[j].id > actual.id) do      
+	       begin
+	         v[j+1]:= v[j];
+	         j:= j - 1;                  
+	       end;  
+	     v[j+1]:= actual; 
+	 end;
+	end;
+
+Procedure OrdenarSeleccion ( var v: vector; dimL:rango  );
+	var i, j, p: rango; item : oficina;
+	begin
+	 for i:=1 to dimL-1 do begin {busca el mínimo y guarda en p la posición}
+	          p := i;
+	          for j := i+1 to dimL do
+	             if v[ j].id < v[ p ].id then p:=j;
+
+	         {intercambia v[i] y v[p]}
+	         item := v[ p ];   
+	         v[ p ] := v[ i ];   
+	         v[ i ] := item;
+	      end;
+	end;
+
 var oficinas:vector;
 	dimL:rango;
 begin
 	AlmacenarInformacion(oficinas, dimL);
-	ImprimirVector(oficinas,diml)
+	ImprimirVector(oficinas,diml);
+	OrdenarSeleccion(oficinas,dimL);
+	//OrdenarInsercion(oficinas,dimL);
+	ImprimirVector(oficinas,diml);
+
 end.
