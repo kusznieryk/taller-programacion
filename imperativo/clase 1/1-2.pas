@@ -5,9 +5,8 @@ a. Genere un vector, sin orden, con a lo sumo las 300 oficinas que administra. D
 	 DNI del propietario y valor de la expensa. La lectura finaliza cuando se ingresa el código de identificación -1, el cual no se procesa.
 b. Ordene el vector, aplicando el método de inserción, por código de identificación de la oficina.
 c. Ordene el vector aplicando el método de selección, por código de identificación de la oficina.
-
 }
-program aaa;
+program ej2;
 const 
 	DIM_F=20;
 type
@@ -23,8 +22,8 @@ type
 procedure AlmacenarInformacion (var v: vector; var dimL: rango); 
   procedure LeerOficina (var theOffice: oficina);
 	  begin
-	    Randomize;
-	    theOffice.id:=random(100);
+	    {Randomize; lo pongo entre corchetes porque por algun motivo hacia que no se ejecute random() si lo dejo}
+	    theOffice.id:=random(20) - 1;
 	    writeln (theOffice.id);
 	    if (theOffice.id <> -1)
 	    then begin
@@ -32,7 +31,9 @@ procedure AlmacenarInformacion (var v: vector; var dimL: rango);
 	    	writeln (theOffice.dni);
 	    	theOffice.precio:=random(1000)/100;
 	    	writeln (theOffice.precio:2:2);
-	        end;
+	        end
+	    else
+	      writeln('se recibio la id -1');
 	  	end;
 
 	var unaOfi:oficina;
@@ -46,6 +47,7 @@ procedure AlmacenarInformacion (var v: vector; var dimL: rango);
 		   LeerOficina (unaOfi);
 	    end;
 	end;
+
 procedure ImprimirVector (v: vector; dimL: rango);
 	var
 	   i: integer;
@@ -73,9 +75,60 @@ procedure ImprimirVector (v: vector; dimL: rango);
 	     writeln;
 	     writeln;
 	End;
+	
+procedure OrdenamientoSeleccion(var v:vector; dimL:rango);
+  var i,j,item:integer;
+  begin
+    for i:=1 to dimL - 1 do begin
+      for j:=i+1 to dimL do begin
+        if v[j].id < v[i].id then begin
+          item:=v[i].id;
+          v[i].id:=v[j].id;
+          v[j].id:=item;
+          end;
+        end; 
+      end;
+  End;
+  
+{procedure OrdenamientoSeleccionComoEstaEnLaTeoria(var v:vector; dimL:rango);
+  var i,j,item, p:integer;
+  begin
+    for i:=1 to dimL - 1 do begin
+      p:=i;
+      for j:=i+1 to dimL do begin
+        if v[j].id < v[p].id then begin
+          p:=j;
+          item:=v[i].id;
+          v[i].id:=v[p].id;
+          v[p].id:=item;
+          end;
+        end; 
+      end;
+      * No entiendo porque esta p si j es perfectamente capaz de hacer el trabajo
+  End;}
+  
+  
+procedure OrdenamientoInsercion(var v:vector; dimL:rango);
+  var i,j,actual:integer;
+  begin
+    for i:=2 to diml do begin
+      actual:=v[i].id; 
+      j:=i-1;
+      while (j > 0) and (v[j].id > actual) do begin
+        v[j+1].id:=v[j].id;
+        j:=j-1;
+        end;
+      v[j+1].id:=actual;
+      end;
+        
+  End;
+  
 var oficinas:vector;
 	dimL:rango;
 begin
 	AlmacenarInformacion(oficinas, dimL);
-	ImprimirVector(oficinas,diml)
+	ImprimirVector(oficinas,diml);
+    {OrdenamientoSeleccion(oficinas, dimL);}
+    OrdenamientoInsercion(oficinas, dimL); 
+    ImprimirVector(oficinas,dimL);
 end.
