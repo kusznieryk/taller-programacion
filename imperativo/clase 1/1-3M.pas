@@ -113,16 +113,16 @@ procedure GeneroVectorC(var vc:vectorC; v:vector);
 		end;
 		
 	{procedure OrdenarVc(var vc:vectorC);
-			var i,j :integer; actual:real;
+			var i,j :integer; actual:pelicula;
 			begin
 				for i:=2 to 8 do begin
-				  actual:=vc[i].puntaje; 
+				  actual:=vc[i]; 
 				  j:=i-1;
-				  while (j > 0) and (vc[j].puntaje > actual) do begin
-					vc[j+1].puntaje:=vc[j].puntaje;
+				  while (j > 0) and (vc[j].puntaje < actual.puntaje) do begin
+					vc[j+1]:=vc[j];
 					j:=j-1;
 					end;
-				  vc[j+1].puntaje:=actual;
+				  vc[j+1]:=actual;
 				end;
 			end;}
 			
