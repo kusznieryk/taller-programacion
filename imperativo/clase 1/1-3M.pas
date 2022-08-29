@@ -40,19 +40,17 @@ procedure GeneroVectorDeListas (var v:vector);
 				end;
 		end;
 	
-	procedure AgregarAtras(var v:vector; r:pelicula); {como tengo 8 listas tendria que tener 8 ultimos, vamos a hacer que el ult recorra la lista entera}
-		var aux, ult:lista; i:integer;
+	procedure AgregarAtras(var v:vector; r:pelicula; var vDeUlt:vector); {como tengo 8 listas tendria que tener 8 ultimos, vamos a hacer que el ult recorra la lista entera.
+	muy ineficiente, mejor solucion un vector con 8 ultimos}
+		var aux:lista; i:integer;
 		begin
 			i:=r.genero;
 			new(aux); aux^.dato:=r; aux^.sig:=nil; 
-			if v[i]=nil then
+			if v[i] = nil then
 				v[i]:=aux
-		    else 
-				begin
-					ult:=v[i];
-					while (ult^.sig <> nil) do ult:=ult^.sig; 
-					ult^.sig:=aux;
-				end;
+			else
+				vDeUlt[i]^.sig:=aux;
+			vDeUlt[i]:=aux;	
 		end;
 		
 	procedure IniciarVectorDeListas (var v:vector);
@@ -75,12 +73,13 @@ procedure GeneroVectorDeListas (var v:vector);
 					end;
 		End;
 		
-	var r:pelicula;
+	var r:pelicula; vectorDeUlt:vector;
 	begin
 		IniciarVectorDeListas(v);
+		IniciarVectorDeListas(vectorDeUlt);
 		LeoRegistro(r);
 		while (r.codPeli <> -1) do begin
-			AgregarAtras(v, r);
+			AgregarAtras(v, r, vectorDeUlt);
 			LeoRegistro(r);
 		    end;
 		escribirV(v);
@@ -112,7 +111,7 @@ procedure GeneroVectorC(var vc:vectorC; v:vector);
 				end;
 		end;
 		
-	{procedure OrdenarVc(var vc:vectorC);
+	procedure OrdenarVc(var vc:vectorC; dimL:integer);
 			var i,j :integer; actual:pelicula;
 			begin
 				for i:=2 to 8 do begin
@@ -124,9 +123,12 @@ procedure GeneroVectorC(var vc:vectorC; v:vector);
 					end;
 				  vc[j+1]:=actual;
 				end;
-			end;}
+				
+				for i:=1 to 8 do
+					writeln(vc[i].puntaje);
+			end;
 			
-	procedure OrdenarVc(var vc:vectorC; dimL:integer);
+	{procedure OrdenarVc(var vc:vectorC; dimL:integer);
 		var i,j,p:integer; item:pelicula;
 		begin
 			for i:=1 to 7 do begin
@@ -140,14 +142,12 @@ procedure GeneroVectorC(var vc:vectorC; v:vector);
 				end;
 			for i:=1 to dimL do
 				writeln(vc[i].puntaje);
-		End;
+		End;}
 			
 	procedure ImprimirVector(vc:vectorC; dimL:integer);
 		begin
-			{i:=1;
+		{	i:=1;
 			for i:=1 to 8 do begin
-				if (vc[i].puntaje <> -1) then 
-					dimL:=dimL+1;
 				writeln('puntajes en vc:');
 				writeln(vc[i].puntaje:2:2);
 				end;
@@ -163,7 +163,7 @@ procedure GeneroVectorC(var vc:vectorC; v:vector);
 				writeln('el vector esta  vacio, no se puede mostrar informacion');
 		End;
 		
-	var i, dimL:integer; r:pelicula;
+	var dimL:integer; r:pelicula;
 	begin
 		ArmarVectorC(vc,r,v, dimL);
 		OrdenarVc(vc, dimL);
