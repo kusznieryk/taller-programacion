@@ -24,6 +24,7 @@ procedure generoLista(var l:lista);
     begin
         num:=random(10);
         if num <> 0 then begin
+            writeln(num);
             new(aux); 
             aux^.dato:=num;
             aux^.sig:=l;
@@ -40,27 +41,29 @@ procedure escriboLista(l:lista);
             end;
         end;
 
-function minLista(l:lista; var min:integer):integer;
+function minLista(l:lista):integer;
+    var aux:integer;
     begin
-        if (l<> nil) then begin
-            if (l^.dato < min) then
-                min:=l^.dato;
-            l:=l^.sig;
-            minLista := minLista(l, min)    
-            end;
-        minLista:=min;
+        if l =nil then minLista:= 999
+        else begin 
+            aux:=minLista(l^.sig);
+
+            if (aux <l^.dato ) then minLista:=aux
+            else minLista := l^.dato
+        end
     end;
         
-function maxLista(l:lista; var max:integer):integer;
+function maxLista(l:lista):integer;
+    var aux:integer;
     begin
-        if (l<> nil) then begin
-            if (l^.dato > max) then
-                max:=l^.dato;
-            l:=l^.sig;
-            maxLista := maxLista(l, max)    
-            end;
-        maxLista:=max;
-    end;   
+        if l =nil then maxLista:= 0
+        else begin 
+            aux:=maxLista(l^.sig);
+
+            if (aux >l^.dato ) then maxLista:=aux
+            else maxLista := l^.dato
+        end
+    end;  
 
 function buscarNum(l:lista; dato:integer ):boolean;
 begin
@@ -82,10 +85,8 @@ begin
     randomize;
     l:=nil;
     generoLista(l);
-    min:=999;;
     max:=-1;
-   writeln(minLista(l, min));
-    writeln(maxLista(l, max));
-    writeln(buscarNum(l,9));
-    writeLn(sumaLista(l))
+    writeln('-----------------------------------------------------');
+    writeln(minLista(l));
+    writeln(maxLista(l));
 end.
