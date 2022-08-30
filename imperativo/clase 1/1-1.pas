@@ -107,11 +107,12 @@ procedure Eliminar(var v:vector; var dimL:rango3;inferior:rango1; superior:rango
     while (i<=dimL) and (v[i].codigoP<inferior) do i:=i+1;
 
     if i<=dimL then begin
-        while (i<=dimL) and (v[i].codigoP<=superior) do
+        j:=i;
+        while (j<=dimL) and (v[j].codigoP<=superior) do
             begin
-                i:=i+1;
-                cont:=cont+1;
+                j:=j+1;
             end; 
+        cont:=j-i;
 
         for j:=i to dimL do
             v[j-cont]:= v[j];
