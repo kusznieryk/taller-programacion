@@ -131,7 +131,7 @@
 	//inciso e
 	function cantLegajoImp(a:abb): Integer;
 		begin
-			if(a<>nil) then cantLegajoImp:=((cantLegajoImp(a^.HI)+ cantLegajoImp(a^.HD)) +((a^.dato.legajo +1)mod 2))
+			if(a<>nil) then cantLegajoImp:=((cantLegajoImp(a^.HI)+ cantLegajoImp(a^.HD)) +(a^.dato.legajo mod 2))
 			else cantLegajoImp:=0
 		end;
 
