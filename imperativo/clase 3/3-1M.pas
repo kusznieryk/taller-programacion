@@ -11,7 +11,7 @@ vi. Lea un nombre e informe si existe o no existe un socio con ese nombre. Debe 
 vii. Informe la cantidad de socios. Debe invocar a un módulo recursivo que retorne dicha cantidad.
 viii. Informe el promedio de edad de los socios. Debe invocar a un módulo recursivo que retorne dicho promedio.
 ix. Informe, a partir de dos valores que se leen, la cantidad de socios en el árbol cuyo número de socio se encuentra entre los dos valores ingresados.
-*  Debe invocar a un módulo recursivo que reciba los dos valores leídos y retorne dicha cantidad.
+*Debe invocar a un módulo recursivo que reciba los dos valores leídos y retorne dicha cantidad.
 x. Informe los números de socio en orden creciente. 
 xi. Informe los números de socio pares en orden decreciente. 
 }
